@@ -1,0 +1,29 @@
+# 子目录下的一些垃圾主要是
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+.vscode/
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*/data/
+.data/
+
+# 根目录
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.swp
+
