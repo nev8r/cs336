@@ -194,7 +194,7 @@ def train_bpe(
             if pair_freqs.get(top_pair,0) == freq:
                 pair = top_pair
                 break
-            # if top_pair in pair_freqs and pair_freqs[top_pair] > 0: # lazy_update
+            # if top_pair in pair_freqs and pair_freqs[top_pair] > 0: 
             #     heapq.heappush(pair_heap, (-pair_freqs[top_pair], Reverse_Pair(top_pair), top_pair))
         else:
             break
@@ -217,7 +217,7 @@ def train_bpe(
             i == vocab_size - 1
         ):
             print(
-                f"{i - st + 1}/{vocab_size - st} 次合并完成 (合并耗时: {time.time() - start_time:.2f}s)"
+                f"{i - st + 1}/{vocab_size - st} 次合并完成 (合并耗时: {time.time() - start_time:.2f}s and the sizeof pair_heaq is {len(pair_heap)})"
             )
 
     print(f"合并完成，耗时 {time.time() - start_time:.2f}s")
@@ -230,13 +230,14 @@ def train_bpe(
         write_vocab(vocab, vocab_outpath)
 
     return vocab, merges
+
 if __name__ == "__main__":
     (vocab, merges) = train_bpe(
-        input_path="./data/test.txt",
-        vocab_size=10000,
+        input_path="./data/owt_valid.txt",
+        vocab_size=8000,
         special_tokens=["<|endoftext|>"],
-        # merges_outpath="./out/ts-train-merges-2.txt",
-        # vocab_outpath="./out/ts-train-vocab-2.txt",
+        merges_outpath="./out/owt_valid-merges.txt",
+        vocab_outpath="./out/owt_valid-vocab.txt",
     )
 
-    print(vocab,merges)
+    # print(vocab,merges)

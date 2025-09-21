@@ -110,8 +110,8 @@ class BPETokenizer:
 def main():
     special_tokens = ["<|endoftext|>","<|endoftext|><|endoftext|>"]
     bpe = BPETokenizer.load_from_file(
-        "./out/ts-valid-vocab-2.txt",
-        "./out/ts-valid-merges-2.txt",
+        "./out/owt_train-vocab.txt",
+        "./out/owt_train-merges.txt",
         special_tokens
     )
 
