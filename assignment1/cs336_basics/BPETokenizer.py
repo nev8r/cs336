@@ -3,8 +3,7 @@ from cs336_basics.train_bpe import *
 import regex as re
 import heapq
 from collections.abc import Iterable, Iterator
-
-
+from tqdm import tqdm
 
 class BPETokenizer:
 
@@ -88,7 +87,7 @@ class BPETokenizer:
         pretokens = self._pre_tokenize(text)
         # apply the merges，按照merges中的优先级进行 merge
         token_ids = []
-        for tok in pretokens:
+        for tok in tqdm(pretokens):
             tok = tok.encode("utf-8")
             if self.special_tokens and tok.decode("utf-8",errors="ignore") in self.special_tokens:
                 token_ids.append(self.token_to_idx.get(tok))
