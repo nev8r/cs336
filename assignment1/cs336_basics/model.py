@@ -42,7 +42,7 @@ class Embedding(nn.Module):
         self.weights = nn.Parameter(w)
 
     def forward(self,token_ids:Tensor) -> Tensor:
-        return self.weights[token_ids]
+        return self.weights[token_ids.int()]
         
 class RMSNorm(nn.Module):
     def __init__(self, d_model: int, eps: float = 1e-5, device=None, dtype=None):
@@ -121,7 +121,7 @@ class Attention(nn.Module):
         d_k = Q.size(-1)
         scores = (Q @ K.transpose(-2,-1) ) / math.sqrt(d_k)
         if mask is not None:
-            scores = scores.masked_fill(mask==False,float('-inf'))
+            scores = scores.masked_fill(mask.to(scores.device)==False,float('-inf'))
         attn = softmax(scores,dim=-1)
         out = attn @ V
         return out
@@ -194,7 +194,7 @@ class TransfomerBlock(nn.Module):
         return x + self.swiglu(self.rmsnorm2(x))
     
 
-class TransfomerLM(nn.Module):
+class TransformerLM(nn.Module):
 
     def __init__(
             self,

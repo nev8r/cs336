@@ -396,7 +396,7 @@ def run_transformer_lm(
         next-word distribution for each token.
     """
     # raise NotImplementedError
-    model = TransfomerLM(vocab_size,context_length,d_model,num_layers,num_heads,d_ff,rope_theta)
+    model = TransformerLM(vocab_size,context_length,d_model,num_layers,num_heads,d_ff,rope_theta)
     model.emb.weights.data.copy_(weights['token_embeddings.weight'])
     model.rmsnorm.weights.data.copy_(weights['ln_final.weight'])
     model.lm_head.weights.data.copy_(weights['lm_head.weight'])

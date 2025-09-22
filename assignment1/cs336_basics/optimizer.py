@@ -73,3 +73,7 @@ class Adamw(optim.Optimizer):
                 state["t"] = t + 1
 
         return loss
+
+
+def get_adamw_cls():
+    return Adamw

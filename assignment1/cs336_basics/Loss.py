@@ -11,7 +11,7 @@ def log_softmax(x:Tensor,dim:int):
 def cross_entropy(inputs:Tensor, targets:Tensor) -> Tensor:
 
     probs = log_softmax(inputs,-1)
-
+    targets = targets.to(probs.device).long()
     target_probs = probs.gather(dim=-1, index=targets.unsqueeze(-1)).squeeze(-1)
     
     return -target_probs.mean()

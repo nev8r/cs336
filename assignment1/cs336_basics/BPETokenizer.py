@@ -58,7 +58,7 @@ class BPETokenizer:
                 
     
     def encode_token(self,tok:list[bytes]) -> list[int]:
-        otk = str(tok).encode("utf-8")
+        otk = b"".join(tok)
         while True:
             best_rank = float('inf')
             best_idx = None
@@ -89,14 +89,15 @@ class BPETokenizer:
         # apply the merges，按照merges中的优先级进行 merge
         token_ids = []
         for tok in pretokens:
-            if self.special_tokens and tok in self.special_tokens:
-                token_ids.append(self.token_to_idx.get(tok.encode("utf-8")))
+            tok = tok.encode("utf-8")
+            if self.special_tokens and tok.decode("utf-8",errors="ignore") in self.special_tokens:
+                token_ids.append(self.token_to_idx.get(tok))
             elif tok in self.token_encode_cache:
-                token_ids.extend(self.token_encode_cache.get(tok.encode("utf-8")))
+                # print("Using cache for:",tok)
+                token_ids.extend(self.token_encode_cache.get(tok))
             else:
-                tok = [bytes([b]) for b in tok.encode("utf-8")]
+                tok = [bytes([b]) for b in tok]
                 token_ids.extend(self.encode_token(tok))
-
         return token_ids
 
     def encode_iterable(self, iterable: Iterable[str]) -> Iterator[int]:
@@ -115,10 +116,12 @@ def main():
         special_tokens
     )
 
-    ids = bpe.encode("Hello, how <|endoftext|><|endoftext|> are you?<|endoftext|>")
+    ids = bpe.encode("Hello, how <|endoftext|><|endoftext|> are you?<|endoftext|> you you you")
 
     print(ids)
     tokenized_string = [bpe.decode([x]) for x in ids]
     print(tokenized_string)
+    # print(bpe.token_encode_cache)
 if __name__ == "__main__":
         main()
+
