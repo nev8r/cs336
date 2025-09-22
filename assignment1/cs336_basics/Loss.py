@@ -21,3 +21,9 @@ def perplexity(inputs:Tensor, targets:Tensor) -> Tensor:
     ce = cross_entropy(inputs,targets)
     return torch.exp(ce)
 
+class CrossEntropyLoss:
+    def __init__(self):
+        pass
+
+    def __call__(self, inputs:Tensor, targets:Tensor) -> Tensor:
+        return cross_entropy(inputs,targets)

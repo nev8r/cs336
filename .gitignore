@@ -19,6 +19,9 @@ venv.bak/
 */data/
 .data/
 
+*.pth
+
+
 # 根目录
 *.log
 *.pot

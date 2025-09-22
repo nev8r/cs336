@@ -18,7 +18,22 @@ def get_lr_cosine_schedule(
         return lr
     return min_learning_rate    
 
+class LR_Scheduler:
+    def __init__(self,optimizer,max_learning_rate,min_learning_rate,warmup_iters,cosine_cycle_iters):
+        self.optimizer = optimizer
+        self.max_learning_rate = max_learning_rate
+        self.min_learning_rate = min_learning_rate
+        self.warmup_iters = warmup_iters
+        self.cosine_cycle_iters = cosine_cycle_iters
 
+    def __call__(self, it):
+        return get_lr_cosine_schedule(
+            it,
+            self.max_learning_rate,
+            self.min_learning_rate,
+            self.warmup_iters,
+            self.cosine_cycle_iters,
+        )
 # def 
 class Adamw(optim.Optimizer):
 
