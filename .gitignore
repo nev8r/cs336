@@ -33,3 +33,8 @@ venv.bak/
 *.gz
 
 *.zip
+
+assignment1/out/
+*.pkl
+*.tar.gz
+
